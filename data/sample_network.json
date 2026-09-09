@@ -1,0 +1,87 @@
+{
+  "nodes": [
+    {
+      "id": "internet",
+      "name": "Internet",
+      "type": "external",
+      "zone": "external",
+      "criticality": 10,
+      "exposed": true,
+      "open_ports": [],
+      "vulnerabilities": []
+    },
+    {
+      "id": "firewall",
+      "name": "Edge Firewall",
+      "type": "firewall",
+      "zone": "dmz",
+      "criticality": 8,
+      "exposed": true,
+      "open_ports": [443],
+      "vulnerabilities": []
+    },
+    {
+      "id": "web",
+      "name": "Web Server",
+      "type": "server",
+      "zone": "dmz",
+      "criticality": 8,
+      "exposed": true,
+      "open_ports": [22, 80, 443],
+      "vulnerabilities": [
+        {
+          "id": "CVE-DEMO-001",
+          "severity": "high",
+          "score": 8.5,
+          "description": "Demo remote-service vulnerability for local lab simulation."
+        }
+      ]
+    },
+    {
+      "id": "vpn",
+      "name": "VPN Gateway",
+      "type": "gateway",
+      "zone": "dmz",
+      "criticality": 7,
+      "exposed": true,
+      "open_ports": [443],
+      "vulnerabilities": []
+    },
+    {
+      "id": "pc01",
+      "name": "Employee PC",
+      "type": "workstation",
+      "zone": "internal",
+      "criticality": 6,
+      "exposed": false,
+      "open_ports": [445],
+      "vulnerabilities": [
+        {
+          "id": "CVE-DEMO-002",
+          "severity": "medium",
+          "score": 6.5,
+          "description": "Demo endpoint vulnerability for local lab simulation."
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "name": "Customer Database",
+      "type": "database",
+      "zone": "restricted",
+      "criticality": 10,
+      "exposed": false,
+      "open_ports": [3306],
+      "vulnerabilities": []
+    }
+  ],
+  "edges": [
+    {"source": "internet", "target": "firewall", "protocol": "TCP", "port": 443, "allowed": true},
+    {"source": "firewall", "target": "web", "protocol": "TCP", "port": 443, "allowed": true},
+    {"source": "firewall", "target": "vpn", "protocol": "TCP", "port": 443, "allowed": true},
+    {"source": "web", "target": "db", "protocol": "TCP", "port": 3306, "allowed": true, "description": "Application database access"},
+    {"source": "vpn", "target": "pc01", "protocol": "TCP", "port": 445, "allowed": true},
+    {"source": "pc01", "target": "db", "protocol": "TCP", "port": 3306, "allowed": true},
+    {"source": "internet", "target": "db", "protocol": "TCP", "port": 3306, "allowed": false, "description": "Blocked by firewall"}
+  ]
+}
