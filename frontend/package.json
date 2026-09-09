@@ -1,0 +1,26 @@
+{
+  "name": "network-attack-path-analyzer-frontend",
+  "version": "0.7.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "next": "16.3.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.3.0",
+    "typescript": "^5.0.0"
+  },
+  "author": "MD Jubayer Khan Akash",
+  "description": "Defensive network attack-path analysis, risk scoring, simulation, reporting, and AI-assisted explanation. Developed by MD Jubayer Khan Akash."
+}
